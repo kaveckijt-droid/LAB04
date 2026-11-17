@@ -24,8 +24,8 @@
         /// </example>
         public static string IntroduceYourself(string name, int age)
         {
-            // Реализовать метод для решения задачи
-            throw new NotImplementedException();
+            string formattedName = char.ToUpper(name[0]) + name.Substring(1).ToLower();
+            return $"Hello! My name is {formattedName} and i am {age} years old.";
         }
 
         // =========================
@@ -62,7 +62,9 @@
         public static string CalculateBMI(double heightCm, double weightKg)
         {
             // Реализовать метод для решения задачи
-            throw new NotImplementedException();
+            double heightM = heightCm/100.0;
+            double bmi = weightKg/(heightM * heightM);
+            return $"Рост: {heightCm} см, Вес: {weightKg} кг, ИМТ = {bmi:F1}";
         }
 
         /// <summary>
@@ -160,7 +162,27 @@
         public static string GetTriangleType(double a, double b, double c)
         {
             // Реализовать метод для решения задачи
-            throw new NotImplementedException();
+            string TriangleType;
+            if (a+b <= c || a+c <= b || b+c <= a)
+            {
+                TriangleType = "не существует";
+            }
+            
+            else if (a==b && b==c)
+            {
+                TriangleType = "равносторонний";
+            }
+            
+            else if ( a==b || b==c || a==c)
+            {
+                TriangleType = "равнобедренный";
+            }
+
+            else
+            {
+                TriangleType = "разносторонний";
+            }
+            return $"Треугольник со сторонами {a}, {b}, {c} - {TriangleType}";
         }
 
         /// <summary>
@@ -257,8 +279,30 @@
         public static string ReverseNumber(int number)
         {
             // Реализовать метод для решения задачи
-            throw new NotImplementedException();
+            int ReversedNumber = 0;
+            bool isNegative = number < 0;
+
+            if (isNegative)
+            {
+                number = -number;
+            }
+
+            while (number > 0)
+            {
+                int LastDigit = number % 10; 
+                
+                ReversedNumber = ReversedNumber * 10 + LastDigit;
+                number = number / 10;
+            }
+
+            if (isNegative)
+            {
+                ReversedNumber = -ReversedNumber;
+            }
+
+            return $"Перевёрнутое число: {ReversedNumber}";
         }
+        
 
         /// <summary>
         /// Задача 3. Вычисляет сумму первых n чисел Фибоначчи.
@@ -357,10 +401,47 @@
         /// SecondLargest(new int[] {4}) → "В массиве должно находиться минимум 2 элемента"
         /// </example>
         public static string SecondLargest(int[] array)
-        {
-            // Реализовать метод для решения задачи
-            throw new NotImplementedException();
-        }
+{
+            if (array == null || array.Length < 2)
+            {
+                return "В массиве должно находиться минимум 2 элемента";
+            }
+
+            int max1, max2;
+            int index1, index2;
+
+            if (array[0] > array[1])
+            {
+                max1 = array[0]; index1 = 0;
+                max2 = array[1]; index2 = 1;
+            }
+            else
+            {
+                max1 = array[1]; index1 = 1;
+                max2 = array[0];
+                index2 = (array[0] == array[1]) ? 1 : 0;
+            }
+
+            for (int i = 2; i < array.Length; i++) 
+            {
+                if (array[i] > max1)
+                {
+                    max2 = max1;
+                    index2 = index1;
+                    
+                    max1 = array[i];
+                    index1 = i;
+                }
+                else if (array[i] > max2 && array[i] != max1)
+                {
+                    max2 = array[i];
+                    index2 = i;
+                }
+            }
+
+                return $"Второй по величине элемент: {max2} (индекс {index2})";
+}
+                
 
         /// <summary>
         /// Задача 3. Возвращает массив в обратном порядке.
